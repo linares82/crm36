@@ -1,0 +1,7 @@
+[
+    {
+        "model-name": "OportunityLabel",
+        "resource-file": "oportunity_labels.json",
+        "table-name": "oportunity_labels"
+    }
+]

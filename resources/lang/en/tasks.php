@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'id' => 'Id',
+    'id__placeholder' => 'Capturar id ...',
+    'task' => 'Task',
+    'task__placeholder' => 'Capturar task ...',
+    'usu_alta_id' => 'Usu Alta',
+    'usu_alta_id__placeholder' => 'Seleccionar usu alta',
+    'usu_mod_id' => 'Usu Mod',
+    'usu_mod_id__placeholder' => 'Seleccionar usu mod',
+    'created_at' => 'Created At',
+    'created_at__placeholder' => 'Capturar created at ...',
+    'updated_at' => 'Updated At',
+    'updated_at__placeholder' => 'Capturar updated at ...',
+    'deleted_at' => 'Deleted At',
+    'deleted_at__placeholder' => 'Capturar deleted at ...',
+    'create' => 'Crear Nuevo Task',
+    'delete' => 'Borrar Task',
+    'edit' => 'Editar Task',
+    'show' => 'Mostrar Task',
+    'show_all' => 'Mostrar Todos Task',
+    'add' => 'Agregar',
+    'update' => 'Actualizar',
+    'confirm_delete' => 'Borrar Task?',
+    'none_available' => 'No hay Tasks Disponibles!',
+    'model_plural' => 'Tasks',
+    'model_was_added' => 'Task fué agregado exitosamente!',
+    'model_was_updated' => 'Task fué actualizado exitosamente!',
+    'model_was_deleted' => 'Task fué borrado exitosamente!',
+    'unexpected_error' => 'Problema inesperado al procesar su petición!',
+
+];

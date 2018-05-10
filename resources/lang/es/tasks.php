@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'id' => 'Id',
+    'id__placeholder' => 'Capturar id ...',
+    'task' => 'Tarea',
+    'task__placeholder' => 'Capturar Tarea ...',
+    'usu_alta_id' => 'Alta',
+    'usu_alta_id__placeholder' => 'Seleccionar usu alta',
+    'usu_mod_id' => 'Ultima Modificación',
+    'usu_mod_id__placeholder' => 'Seleccionar usu mod',
+    'created_at' => 'Createdo el',
+    'created_at__placeholder' => 'Capturar created at ...',
+    'updated_at' => 'Actualizado el',
+    'updated_at__placeholder' => 'Capturar updated at ...',
+    'deleted_at' => 'Deleted At',
+    'deleted_at__placeholder' => 'Capturar deleted at ...',
+    'create' => 'Crear Nuevo Tarea',
+    'delete' => 'Borrar Tarea',
+    'edit' => 'Editar Tarea',
+    'show' => 'Mostrar Tarea',
+    'show_all' => 'Mostrar Todos Tarea',
+    'add' => 'Agregar',
+    'update' => 'Actualizar',
+    'confirm_delete' => 'Borrar Tarea?',
+    'none_available' => 'No hay Tareas Disponibles!',
+    'model_plural' => 'Tareas',
+    'model_was_added' => 'Tarea fué agregado exitosamente!',
+    'model_was_updated' => 'Tarea fué actualizado exitosamente!',
+    'model_was_deleted' => 'Tarea fué borrado exitosamente!',
+    'unexpected_error' => 'Problema inesperado al procesar su petición!',
+
+];

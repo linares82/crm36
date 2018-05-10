@@ -1,0 +1,8 @@
+id,slug,name,created,update
+138,predefined_tasks.predefined_task.index,predefined_tasks.predefined_task.index,,
+139,predefined_tasks.predefined_task.create,predefined_tasks.predefined_task.create,,
+140,predefined_tasks.predefined_task.show,predefined_tasks.predefined_task.show,,
+141,predefined_tasks.predefined_task.edit,predefined_tasks.predefined_task.edit,,
+142,predefined_tasks.predefined_task.store,predefined_tasks.predefined_task.store,,
+143,predefined_tasks.predefined_task.update,predefined_tasks.predefined_task.update,,
+144,predefined_tasks.predefined_task.destroy,predefined_tasks.predefined_task.destroy,,

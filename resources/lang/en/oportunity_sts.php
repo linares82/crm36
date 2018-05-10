@@ -1,0 +1,33 @@
+<?php
+
+return [
+    'id' => 'Id',
+    'id__placeholder' => 'Capturar id ...',
+    'estatus' => 'Estatus',
+    'estatus__placeholder' => 'Capturar estatus ...',
+    'usu_alta_id' => 'Usu Alta',
+    'usu_alta_id__placeholder' => 'Seleccionar usu alta',
+    'usu_mod_id' => 'Usu Mod',
+    'usu_mod_id__placeholder' => 'Seleccionar usu mod',
+    'created_at' => 'Created At',
+    'created_at__placeholder' => 'Capturar created at ...',
+    'updated_at' => 'Updated At',
+    'updated_at__placeholder' => 'Capturar updated at ...',
+    'deleted_at' => 'Deleted At',
+    'deleted_at__placeholder' => 'Capturar deleted at ...',
+    'create' => 'Crear Nuevo Oportunity St',
+    'delete' => 'Borrar Oportunity St',
+    'edit' => 'Editar Oportunity St',
+    'show' => 'Mostrar Oportunity St',
+    'show_all' => 'Mostrar Todos Oportunity St',
+    'add' => 'Agregar',
+    'update' => 'Actualizar',
+    'confirm_delete' => 'Borrar Oportunity St?',
+    'none_available' => 'No hay Oportunity Sts Disponibles!',
+    'model_plural' => 'Oportunity Sts',
+    'model_was_added' => 'Oportunity St fué agregado exitosamente!',
+    'model_was_updated' => 'Oportunity St fué actualizado exitosamente!',
+    'model_was_deleted' => 'Oportunity St fué borrado exitosamente!',
+    'unexpected_error' => 'Problema inesperado al procesar su petición!',
+
+];

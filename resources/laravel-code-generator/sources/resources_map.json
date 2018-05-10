@@ -1,0 +1,117 @@
+[
+    {
+        "model-name": "Role",
+        "resource-file": "roles.json",
+        "table-name": "roles"
+    },
+    {
+        "model-name": "Permission",
+        "resource-file": "permissions.json",
+        "table-name": "permissions"
+    },
+    {
+        "model-name": "PermissionGroup",
+        "resource-file": "permission_groups.json",
+        "table-name": "permission_groups"
+    },
+    {
+        "model-name": "Menu",
+        "resource-file": "menus.json",
+        "table-name": "menus"
+    },
+    {
+        "model-name": "User",
+        "resource-file": "users.json",
+        "table-name": "users"
+    },
+    {
+        "model-name": "OportunityLabel",
+        "resource-file": "oportunity_labels.json",
+        "table-name": "oportunity_labels"
+    },
+    {
+        "model-name": "OportunitySt",
+        "resource-file": "oportunity_sts.json",
+        "table-name": "oportunity_sts"
+    },
+    {
+        "model-name": "Oportunity",
+        "resource-file": "oportunities.json",
+        "table-name": "oportunities"
+    },
+    {
+        "model-name": "Estado",
+        "resource-file": "estados.json",
+        "table-name": "estados"
+    },
+    {
+        "model-name": "Municipio",
+        "resource-file": "municipios.json",
+        "table-name": "municipios"
+    },
+    {
+        "model-name": "Customer",
+        "resource-file": "customers.json",
+        "table-name": "customers"
+    },
+    {
+        "model-name": "TypeProduct",
+        "resource-file": "type_products.json",
+        "table-name": "type_products"
+    },
+    {
+        "model-name": "Product",
+        "resource-file": "products.json",
+        "table-name": "products"
+    },
+    {
+        "model-name": "Param",
+        "resource-file": "params.json",
+        "table-name": "params"
+    },
+    {
+        "model-name": "Note",
+        "resource-file": "notes.json",
+        "table-name": "notes"
+    },
+    {
+        "model-name": "Alert",
+        "resource-file": "alerts.json",
+        "table-name": "alerts"
+    },
+    {
+        "model-name": "Evento",
+        "resource-file": "eventos.json",
+        "table-name": "eventos"
+    },
+    {
+        "model-name": "CustomerNote",
+        "resource-file": "customer_notes.json",
+        "table-name": "customer_notes"
+    },
+    {
+        "model-name": "Task",
+        "resource-file": "tasks.json",
+        "table-name": "tasks"
+    },
+    {
+        "model-name": "RelatedTask",
+        "resource-file": "related_tasks.json",
+        "table-name": "related_tasks"
+    },
+    {
+        "model-name": "PredefinededTask",
+        "resource-file": "predefineded_tasks.json",
+        "table-name": "predefineded_tasks"
+    },
+    {
+        "model-name": "PredefinedTask",
+        "resource-file": "predefined_tasks.json",
+        "table-name": "predefined_tasks"
+    },
+    {
+        "model-name": "FilesCustomer",
+        "resource-file": "files_customers.json",
+        "table-name": "files_customers"
+    }
+]
