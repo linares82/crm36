@@ -17,10 +17,10 @@ class Customer extends Model
     protected $table = 'customers';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -29,29 +29,29 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-                  'razon',
-                  'nombre1',
-                  'nombre2',
-                  'ape_paterno',
-                  'ape_materno',
-                  'calle',
-                  'numero_int',
-                  'numero_ext',
-                  'colonia',
-                  'ciudad',
-                  'estado_id',
-                  'municipio_id',
-                  'cp',
-                  'celular',
-                  'celular_confirmar',
-                  'cuenta_sms',
-                  'fijo',
-                  'email',
-                  'cuenta_email',
-                  'email_confirmar',
-                  'usu_alta_id',
-                  'usu_mod_id'
-              ];
+        'razon',
+        'nombre1',
+        'nombre2',
+        'ape_paterno',
+        'ape_materno',
+        'calle',
+        'numero_int',
+        'numero_ext',
+        'colonia',
+        'ciudad',
+        'estado_id',
+        'municipio_id',
+        'cp',
+        'celular',
+        'celular_confirmar',
+        'cuenta_sms',
+        'fijo',
+        'email',
+        'cuenta_email',
+        'email_confirmar',
+        'usu_alta_id',
+        'usu_mod_id'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -59,20 +59,20 @@ class Customer extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the estado for this model.
      */
     public function estado()
     {
-        return $this->belongsTo('App\Models\Estado','estado_id','id');
+        return $this->belongsTo('App\Models\Estado', 'estado_id', 'id');
     }
 
     /**
@@ -80,7 +80,7 @@ class Customer extends Model
      */
     public function municipio()
     {
-        return $this->belongsTo('App\Models\Municipio','municipio_id','id');
+        return $this->belongsTo('App\Models\Municipio', 'municipio_id', 'id');
     }
 
     /**
@@ -88,10 +88,11 @@ class Customer extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User','usu_mod_id','id');
+        return $this->belongsTo('App\Models\User', 'usu_mod_id', 'id');
     }
 
-    public function oportunities(){
+    public function oportunity()
+    {
         return $this->belongsToMany('App\Models\Oportunity', 'customer_oportunity', 'customer_id', 'oportunity_id');
     }
 
@@ -127,5 +128,4 @@ class Customer extends Model
     {
         return date('j/n/Y g:i A', strtotime($value));
     }
-
 }

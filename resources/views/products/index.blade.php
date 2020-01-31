@@ -82,7 +82,7 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>{{ trans('products.oportunity_id') }}</th>
+                            
                             <th>{{ trans('products.type_product_id') }}</th>
                             <th>{{ trans('products.producto') }}</th>
                             <th>{{ trans('products.descripcion') }}</th>
@@ -95,7 +95,7 @@
                     <tbody>
                     @foreach($products as $product)
                         <tr>
-                            <td>{{ optional($product->oportunity)->descripcion }}</td>
+                            
                             <td>{{ optional($product->typeProduct)->producto }}</td>
                             <td>{{ $product->producto }}</td>
                             <td>{{ $product->descripcion }}</td>

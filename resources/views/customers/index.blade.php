@@ -80,7 +80,7 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>{{ trans('customers.oportunity_id') }}</th>
+                            
                             <th>{{ trans('customers.razon') }}</th>
                             <th>{{ trans('customers.nombre1') }}</th>
                             <th>{{ trans('customers.nombre2') }}</th>
@@ -110,7 +110,7 @@
                     <tbody>
                     @foreach($customers as $customer)
                         <tr>
-                            <td>{{ optional($customer->oportunity)->descripcion }}</td>
+                            
                             <td>{{ $customer->razon }}</td>
                             <td>{{ $customer->nombre1 }}</td>
                             <td>{{ $customer->nombre2 }}</td>

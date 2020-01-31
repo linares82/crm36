@@ -23,32 +23,32 @@ class ProductsController extends Controller
      */
     public function index(Request $request)
     {
-		$input=$request->all();
-		$r=Product::where('id', '<>', '0');
-		if(isset($input['id']) and $input['id']<>0){
-			$r->where('id', '=', $input['id']);
-		}
-		/*if(isset($input['name']) and $input['name']<>""){
+        $input = $request->all();
+        $r = Product::where('id', '<>', '0');
+        if (isset($input['id']) and $input['id'] <> 0) {
+            $r->where('id', '=', $input['id']);
+        }
+        /*if(isset($input['name']) and $input['name']<>""){
 			$r->where('name', 'like', '%'.$input['name'].'%');
 		}*/
-		$products = $r->with('oportunity','typeproduct','user')->paginate(25);
-		//$products = Product::with('oportunity','typeproduct','user')->paginate(25);
+        $products = $r->with('oportunity', 'typeproduct', 'user')->paginate(25);
+        //$products = Product::with('oportunity','typeproduct','user')->paginate(25);
 
         return view('products.index', compact('products'));
     }
-    
+
     public function productsOportunityChange(Request $request)
     {
-		$input=$request->all();
-                //dd($input);
-		$r=Product::where('id', '<>', '0');
-		if(isset($input['producto']) and $input['producto']<>""){
-			$r->where('producto', 'like', "%".$input['producto']."%");
-		}
-		
-                $productos=$r->get();
-                //dd($productos->toArray());
-                return $productos->toArray();
+        $input = $request->all();
+        //dd($input);
+        $r = Product::where('id', '<>', '0');
+        if (isset($input['producto']) and $input['producto'] <> "") {
+            $r->where('producto', 'like', "%" . $input['producto'] . "%");
+        }
+
+        $productos = $r->get();
+        //dd($productos->toArray());
+        return $productos->toArray();
         //return view('products.index', compact('products'));
     }
 
@@ -59,12 +59,12 @@ class ProductsController extends Controller
      */
     public function create(Request $request)
     {
-        $oportunities = Oportunity::pluck('descripcion','id')->all();
-        $typeProducts = TypeProduct::pluck('producto','id')->all();
-        $users = User::pluck('name','id')->all();
-        $oportunity_id=$request->get('oportunity_id');
-        
-        return view('products.create', compact('oportunities','typeProducts','users','users', 'oportunity_id'));
+        $oportunities = Oportunity::pluck('descripcion', 'id')->all();
+        $typeProducts = TypeProduct::pluck('producto', 'id')->all();
+        $users = User::pluck('name', 'id')->all();
+        $oportunity_id = $request->get('oportunity_id');
+
+        return view('products.create', compact('oportunities', 'typeProducts', 'users', 'users', 'oportunity_id'));
     }
 
     /**
@@ -77,23 +77,22 @@ class ProductsController extends Controller
     public function store(ProductsFormRequest $request)
     {
         try {
-            
+
             $data = $request->getData();
-            
-	    $data['usu_mod_id']=Auth::user()->id;
-            $data['usu_alta_id']=Auth::user()->id;
-            $producto=Product::create($data);
-            $oportunidad=Oportunity::find($data['oportunity_id']);
+
+            $data['usu_mod_id'] = Auth::user()->id;
+            $data['usu_alta_id'] = Auth::user()->id;
+            $producto = Product::create($data);
+            $oportunidad = Oportunity::find($data['oportunity_id']);
             $oportunidad->product()->attach($producto->id);
-            
+
 
             return redirect()->route('oportunities.oportunity.show', $data['oportunity_id'])
-                             ->with('success_message', trans('products.model_was_added'));
-
+                ->with('success_message', trans('products.model_was_added'));
         } catch (Exception $exception) {
             Log::info($exception);
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => trans('products.unexpected_error')]);
+                ->withErrors(['unexpected_error' => trans('products.unexpected_error')]);
         }
     }
 
@@ -106,7 +105,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with('oportunity','typeproduct','user')->findOrFail($id);
+        $product = Product::with('oportunity', 'typeproduct', 'user')->findOrFail($id);
 
         return view('products.show', compact('product'));
     }
@@ -120,14 +119,17 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $oportunity_id=$_GET['oportunidad'];
-        $product = Product::findOrFail($id);
-        $oportunities = Oportunity::pluck('descripcion','id')->all();
-        $typeProducts = TypeProduct::pluck('producto','id')->all();
-        $users = User::pluck('name','id')->all();
-        
+        if (isset($_GET['oportunidad'])) {
+            $oportunity_id = $_GET['oportunidad'];
+        }
 
-        return view('products.edit', compact('product','oportunities','typeProducts','users','users','oportunity_id'));
+        $product = Product::findOrFail($id);
+        $oportunities = Oportunity::pluck('descripcion', 'id')->all();
+        $typeProducts = TypeProduct::pluck('producto', 'id')->all();
+        $users = User::pluck('name', 'id')->all();
+
+
+        return view('products.edit', compact('product', 'oportunities', 'typeProducts', 'users', 'users', 'oportunity_id'));
     }
 
     /**
@@ -141,24 +143,26 @@ class ProductsController extends Controller
     public function update($id, ProductsFormRequest $request)
     {
         try {
-            
+
             $data = $request->getData();
-            
+
             $product = Product::findOrFail($id);
-			$data['usu_mod_id']=Auth::user()->id;
-            
-            $producto=$product->update($data);
-            $oportunidad=$data['oportunity_id'];
-            
-            
-            return redirect()->route('oportunities.oportunity.show', $oportunidad)
-                             ->with('success_message', trans('products.model_was_updated'));
+            $data['usu_mod_id'] = Auth::user()->id;
 
+            $producto = $product->update($data);
+            if (isset($data['oportunity_id'])) {
+                $oportunidad = $data['oportunity_id'];
+                return redirect()->route('oportunities.oportunity.show', $oportunidad)
+                    ->with('success_message', trans('products.model_was_updated'));
+            } else {
+                return redirect()->route('products.product.index')
+                    ->with('success_message', trans('products.model_was_updated'));
+            }
         } catch (Exception $exception) {
-
+            //dd($exception->getMessage();
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => trans('products.unexpected_error')]);
-        }        
+                ->withErrors(['unexpected_error' => trans('products.unexpected_error')]);
+        }
     }
 
     /**
@@ -175,15 +179,11 @@ class ProductsController extends Controller
             $product->delete();
 
             return redirect()->route('products.product.index')
-                             ->with('success_message', trans('products.model_was_deleted'));
-
+                ->with('success_message', trans('products.model_was_deleted'));
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => trans('products.unexpected_error')]);
+                ->withErrors(['unexpected_error' => trans('products.unexpected_error')]);
         }
     }
-
-
-
 }
