@@ -189,19 +189,19 @@ Route::group(
 
     Route::get('/', [
         'uses'=>'UsersController@index',
-        'middleware'=>'permission:users.user.index',
+        //'middleware'=>'permission:users.user.index',
         'as'=>'users.user.index'
     ])->middleware('auth');
          
     Route::get('/create',[
         'uses'=>'UsersController@create',
-        'middleware'=>'role:users.user.create',
+        //'middleware'=>'role:users.user.create',
         'as'=>'users.user.create'
     ])->middleware('auth');
 
     Route::get('/show/{user}',[
         'uses'=>'UsersController@show',
-        'middleware'=>'permission:users.user.show',
+        //'middleware'=>'permission:users.user.show',
         'as'=>'users.user.show'
     ])->middleware('auth')->where('id', '[0-9]+');
 
@@ -213,37 +213,37 @@ Route::group(
     
     Route::get('/{user}/editPerfil',[
         'uses'=>'UsersController@editPerfil',
-        'middleware'=>'permission:users.user.editPerfil',
+        //'middleware'=>'permission:users.user.editPerfil',
         'as'=>'users.user.editPerfil'
     ])->middleware('auth')->where('id', '[0-9]+');
 
     Route::post('/', [
         'uses'=>'UsersController@store',
-        'middleware'=>'permission:users.user.store',
+        //'middleware'=>'permission:users.user.store',
         'as'=>'users.user.store'
     ])->middleware('auth');
                
     Route::put('user/{user}', [
         'uses'=>'UsersController@update',
-        'middleware'=>'permission:users.user.update',
+        //'middleware'=>'permission:users.user.update',
         'as'=>'users.user.update'
     ])->middleware('auth')->where('id', '[0-9]+');
 
     Route::delete('/user/{user}',[
         'uses'=>'UsersController@destroy',
-        'middleware'=>'permission:users.user.destroy',
+        //'middleware'=>'permission:users.user.destroy',
         'as'=>'users.user.destroy'
     ])->middleware('auth')->where('id', '[0-9]+');
 
     Route::get('/addRol',[
         'uses'=>'UsersController@addRol',
-        'middleware'=>'permission:users.user.addRol',
+        //'middleware'=>'permission:users.user.addRol',
         'as'=>'users.user.addRol'
     ])->middleware('auth');
     
     Route::get('/lessRol',[
         'uses'=>'UsersController@lessRol',
-        'middleware'=>'permission:users.user.lessRol',
+        //'middleware'=>'permission:users.user.lessRol',
         'as'=>'users.user.lessRol'
     ])->middleware('auth');
 });
