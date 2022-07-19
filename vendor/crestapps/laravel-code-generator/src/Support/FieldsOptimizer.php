@@ -3,10 +3,8 @@
 namespace CrestApps\CodeGenerator\Support;
 
 use CrestApps\CodeGenerator\Models\Field;
-use CrestApps\CodeGenerator\Model\FieldMapper;
-use CrestApps\CodeGenerator\Traits\CommonCommand;
 use CrestApps\CodeGenerator\Support\Config;
-use CrestApps\CodeGenerator\Support\Helpers;
+use CrestApps\CodeGenerator\Support\Str;
 
 class FieldsOptimizer
 {
@@ -54,9 +52,9 @@ class FieldsOptimizer
     public function optimize()
     {
         $mappers = $this->mappers;
-        
+
         $this->assignPrimaryKey($mappers)
-             ->assignPrimaryTitle($mappers);
+            ->assignPrimaryTitle($mappers);
 
         foreach ($mappers as $mapper) {
             $optimizer = new FieldOptimizer($mapper->field, $mapper->meta);
@@ -80,13 +78,13 @@ class FieldsOptimizer
     }
 
     /**
-     * Assigned and fix the primary key field of the giving collection.
+     * Assigned and fix the primary key field of the given collection.
      *
      * @param array $mappers
      *
      * @return $this
      */
-    protected function assignPrimaryKey(array & $mappers)
+    protected function assignPrimaryKey(array &$mappers)
     {
         $foundPrimary = false;
 
@@ -107,12 +105,12 @@ class FieldsOptimizer
     }
 
     /**
-     * Giving a mappers collection, it'll update the the field by making one as primary title
+     * given a mappers collection, it'll update the the field by making one as primary title
      *
      * @param CrestApps\CodeGenerator\Models\Field $field
      * @return bool
-    */
-    protected function assignPrimaryTitle(array & $mappers)
+     */
+    protected function assignPrimaryTitle(array &$mappers)
     {
         $fieldsWithHeader = array_filter($mappers, function ($mapper) {
             return $mapper->field->isHeader;
@@ -126,8 +124,8 @@ class FieldsOptimizer
                     $mapper->field->isHeader = false;
                     continue;
                 }
-  
-                if ($this->isPrimaryHeader($mapper->field) && (! array_key_exists('is-header', $mapper->meta) || $mapper->meta['is-header'])) {
+
+                if ($this->isPrimaryHeader($mapper->field) && (!array_key_exists('is-header', $mapper->meta) || $mapper->meta['is-header'])) {
                     $found = true;
                     $mapper->field->isHeader = true;
                 }
@@ -138,13 +136,13 @@ class FieldsOptimizer
     }
 
     /**
-     * It checks if a giving field is a primary or not.
+     * It checks if a given field is a primary or not.
      *
      * @param CrestApps\CodeGenerator\Models\Field $field
      * @return bool
-    */
+     */
     protected function isPrimaryHeader(Field $field)
     {
-        return $field->isHeader || Helpers::strIs(Config::getHeadersPatterns(), $field->name);
+        return $field->isHeader || Str::match(Config::getHeadersPatterns(), $field->name);
     }
 }

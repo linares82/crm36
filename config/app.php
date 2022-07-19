@@ -170,6 +170,7 @@ return [
          */
         YaroslavMolchan\Rbac\RbacServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */

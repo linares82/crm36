@@ -57,8 +57,7 @@
 
     <div class="panel-body">
         <dl class="dl-horizontal">
-            <dt>{{ trans('products.oportunity_id') }}</dt>
-            <dd>{{ optional($product->oportunity)->descripcion }}</dd>
+            
             <dt>{{ trans('products.type_product_id') }}</dt>
             <dd>{{ optional($product->typeProduct)->producto }}</dd>
             <dt>{{ trans('products.producto') }}</dt>

@@ -11,11 +11,12 @@ use CrestApps\CodeGenerator\Support\Helpers;
 use CrestApps\CodeGenerator\Support\ResourceMapper;
 use CrestApps\CodeGenerator\Support\Str;
 use CrestApps\CodeGenerator\Traits\CommonCommand;
+use CrestApps\CodeGenerator\Traits\ModelTrait;
 use Exception;
 
 abstract class ParserBase
 {
-    use CommonCommand;
+    use CommonCommand, ModelTrait;
 
     /**
      * List of fields to be excluded from all views.
@@ -117,7 +118,7 @@ abstract class ParserBase
     }
 
     /**
-     * Check if the giving fields contains autoManagedFields
+     * Check if the given fields contains autoManagedFields
      *
      * @return CrestApps\CodeGenerator\Models\Resource
      */
@@ -160,7 +161,7 @@ abstract class ParserBase
     }
 
     /**
-     * Get the html type for a giving field.
+     * Get the html type for a given field.
      *
      * @param CrestApps\CodeGenerator\Models\Field $field
      * @param string $type
@@ -179,7 +180,7 @@ abstract class ParserBase
     }
 
     /**
-     * Set the html type for a giving field.
+     * Set the html type for a given field.
      *
      * @param CrestApps\CodeGenerator\Models\Field $field
      * @param string $type
@@ -196,17 +197,7 @@ abstract class ParserBase
     }
 
     /**
-     * Gets the models namespace
-     *
-     * @return string
-     */
-    protected function getModelNamespace()
-    {
-        return Helpers::getAppNamespace() . Config::getModelsPath();
-    }
-
-    /**
-     * Gets the model's name from a giving table name
+     * Gets the model's name from a given table name
      *
      * @param string $tableName
      *
@@ -220,7 +211,7 @@ abstract class ParserBase
     }
 
     /**
-     * Make a model name from the giving table name
+     * Make a model name from the given table name
      *
      * @param string $tableName
      *
@@ -230,7 +221,7 @@ abstract class ParserBase
     {
         $name = Str::singular($tableName);
 
-        return ucfirst(camel_case($name));
+        return ucfirst(Str::camel($name));
     }
 
     /**
@@ -241,7 +232,7 @@ abstract class ParserBase
     abstract protected function getColumns();
 
     /**
-     * Transfers every column in the giving array to a collection of fields.
+     * Transfers every column in the given array to a collection of fields.
      *
      * @return array of CrestApps\CodeGenerator\Models\Field;
      */
@@ -260,4 +251,12 @@ abstract class ParserBase
      * @return array of CrestApps\CodeGenerator\Models\ForeignRelationship;
      */
     abstract protected function getRelations();
+
+    /**
+     * Get all tables in database
+     *
+     * @param $databaseName
+     * @return array
+     */
+    abstract public function getTableNames($databaseName);
 }

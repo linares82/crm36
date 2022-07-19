@@ -84,6 +84,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 'as' => 'debugbar.clockwork',
             ]);
 
+            $router->get('telescope/{id}', [
+                'uses' => 'TelescopeController@show',
+                'as' => 'debugbar.telescope',
+            ]);
+            
             $router->get('assets/stylesheets', [
                 'uses' => 'AssetController@css',
                 'as' => 'debugbar.assets.css',
@@ -92,6 +97,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $router->get('assets/javascript', [
                 'uses' => 'AssetController@js',
                 'as' => 'debugbar.assets.js',
+            ]);
+
+            $router->delete('cache/{key}/{tags?}', [
+                'uses' => 'CacheController@delete',
+                'as' => 'debugbar.cache.delete',
             ]);
         });
 

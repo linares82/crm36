@@ -6,6 +6,7 @@ use CrestApps\CodeGenerator\HtmlGenerators\HtmlGeneratorBase;
 use CrestApps\CodeGenerator\Models\Field;
 use CrestApps\CodeGenerator\Models\Label;
 use CrestApps\CodeGenerator\Support\Helpers;
+use CrestApps\CodeGenerator\Support\Str;
 use CrestApps\CodeGenerator\Support\ViewLabelsGenerator;
 
 class StandardHtml extends HtmlGeneratorBase
@@ -134,7 +135,7 @@ class StandardHtml extends HtmlGeneratorBase
     }
 
     /**
-     * Gets a plain title from a giving label.
+     * Gets a plain title from a given label.
      *
      * @param CrestApps\CodeGenerator\Models\Label $label
      * @param bool $raw
@@ -245,7 +246,7 @@ class StandardHtml extends HtmlGeneratorBase
     }
 
     /**
-     * Gets a raw value for a giving field's name.
+     * Gets a raw value for a given field's name.
      *
      * @param string $name
      * @param string $value
@@ -264,7 +265,7 @@ class StandardHtml extends HtmlGeneratorBase
     }
 
     /**
-     * Gets a raw value for a giving field's name.
+     * Gets a raw value for a given field's name.
      *
      * @param string $name
      * @param string $value
@@ -278,13 +279,13 @@ class StandardHtml extends HtmlGeneratorBase
         $valueString = 'null';
 
         if (!is_null($value)) {
-            $valueString = starts_with($value, '$') ? sprintf("%s", $value) : sprintf("'%s'", $value);
+            $valueString = Str::startsWith($value, '$') ? sprintf("%s", $value) : sprintf("'%s'", $value);
         }
 
         $defaultValueString = '[]';
 
         if (!empty($defaultValue)) {
-            $joinedValues = implode(',', Helpers::wrapItems((array) $defaultValue));
+            $joinedValues = implode(',', Arr::wrapItems((array) $defaultValue));
             $defaultValueString = sprintf('[%s]', $joinedValues);
         }
 

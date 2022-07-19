@@ -51,7 +51,7 @@ class MigrationTrackerCapsule implements JsonWriter
     public function __construct(array $properties = [])
     {
         if (!isset($properties['table-name']) || empty($properties['table-name'])) {
-            throw new Eexception('The table-name is required to construct a migration capsule!');
+            throw new Exception('The table-name is required to construct a migration capsule!');
         }
 
         $this->tableName = $properties['table-name'];
@@ -127,7 +127,7 @@ class MigrationTrackerCapsule implements JsonWriter
     }
 
     /**
-     * Get the field difference between two giving Field arrays
+     * Get the field difference between two given Field arrays
      *
      * @param array $fieldsA
      * @param array $fieldsB
@@ -170,7 +170,7 @@ class MigrationTrackerCapsule implements JsonWriter
     }
 
     /**
-     * Get the field difference between two giving Index arrays
+     * Get the field difference between two given Index arrays
      *
      * @param array $indexesA
      * @param array $indexesB
@@ -322,7 +322,7 @@ class MigrationTrackerCapsule implements JsonWriter
     }
 
     /**
-     * Checks if the giving migration name is the current one
+     * Checks if the given migration name is the current one
      *
      * @return bool
      */

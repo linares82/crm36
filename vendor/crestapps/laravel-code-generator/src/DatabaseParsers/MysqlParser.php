@@ -2,20 +2,21 @@
 namespace CrestApps\CodeGenerator\DatabaseParsers;
 
 use App;
-use CrestApps\CodeGenerator\DatabaseParsers\ParserBase;
-use CrestApps\CodeGenerator\Models\Field;
 use CrestApps\CodeGenerator\Models\ForeignConstraint;
 use CrestApps\CodeGenerator\Models\ForeignRelationship;
 use CrestApps\CodeGenerator\Models\Index;
 use CrestApps\CodeGenerator\Support\Config;
 use CrestApps\CodeGenerator\Support\FieldTransformer;
-use CrestApps\CodeGenerator\Support\Helpers;
 use CrestApps\CodeGenerator\Support\Str;
+use CrestApps\CodeGenerator\Traits\LanguageTrait;
+use CrestApps\CodeGenerator\Traits\ModelTrait;
 use DB;
 use Exception;
 
 class MysqlParser extends ParserBase
 {
+    use ModelTrait, LanguageTrait;
+
     /**
      * List of the foreign constraints.
      *
@@ -43,6 +44,7 @@ class MysqlParser extends ParserBase
      *
      * @return array
      */
+
     protected function getColumns()
     {
         return DB::select(
@@ -63,7 +65,7 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Gets foreign key constraint info for a giving column name.
+     * Gets foreign key constraint info for a given column name.
      *
      * @return mix (null|object)
      */
@@ -181,14 +183,14 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Get a corresponding relation to a giving table name, foreign column and local column.
+     * Get a corresponding relation to a given table name, foreign column and local column.
      *
      * @return CrestApps\CodeGenerator\Models\ForeignRelationship
      */
     protected function getRealtion($foreignTableName, $foreignColumn, $localColumn, $selfReferences)
     {
         $modelName = $this->getModelName($foreignTableName);
-        $model = Helpers::guessModelFullName($modelName, Helpers::getModelsPath());
+        $model = self::guessModelFullName($modelName, self::getModelsPath());
 
         $params = [
             $model,
@@ -199,10 +201,10 @@ class MysqlParser extends ParserBase
         $relationName = ($selfReferences ? 'child_' : '');
 
         if ($this->isOneToMany($foreignTableName, $foreignColumn)) {
-            return new ForeignRelationship('hasMany', $params, camel_case($relationName . Str::plural($foreignTableName)));
+            return new ForeignRelationship('hasMany', $params, Str::camel($relationName . Str::plural($foreignTableName)));
         }
 
-        return new ForeignRelationship('hasOne', $params, camel_case($relationName . Str::singular($foreignTableName)));
+        return new ForeignRelationship('hasOne', $params, Str::camel($relationName . Str::singular($foreignTableName)));
     }
 
     /**
@@ -239,7 +241,7 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Gets the field after transfering it from a giving query object.
+     * Gets the field after transfering it from a given query object.
      *
      * @param object $column
      *
@@ -278,7 +280,7 @@ class MysqlParser extends ParserBase
             $collection[] = $properties;
         }
 
-        $localeGroup = Helpers::makeLocaleGroup($this->tableName);
+        $localeGroup = self::makeLocaleGroup($this->tableName);
 
         $fields = FieldTransformer::fromArray($collection, $localeGroup, $this->languages);
 
@@ -320,7 +322,7 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Gets the data type for a giving field.
+     * Gets the data type for a given field.
      *
      * @param string $type
      * @param string $columnType
@@ -343,7 +345,7 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Gets the foreign constrain for the giving field.
+     * Gets the foreign constrain for the given field.
      *
      * @param string $name
      *
@@ -369,7 +371,7 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Set the options for a giving field.
+     * Set the options for a given field.
      *
      * @param CrestApps\CodeGenerator\Models\Field $field
      * @param string $type
@@ -386,7 +388,7 @@ class MysqlParser extends ParserBase
     }
 
     /**
-     * Parses out the options from a giving type
+     * Parses out the options from a given type
      *
      * @param string $type
      *
@@ -413,5 +415,24 @@ class MysqlParser extends ParserBase
         }
 
         return $finals;
+    }
+
+    public function getTableNames($databaseName)
+    {
+        $tables = [];
+        $tableObjects = DB::select('SHOW TABLES');
+        foreach($tableObjects as $table)
+        {
+            $tableName = $table->{'Tables_in_'.$databaseName};
+
+            //remove trailing "s" in table name
+            $removeS = substr($tableName, -1) == 's' ? substr($tableName, 0, -1) : $tableName;
+            //remove _ from string and convert
+            $modelName = ucfirst(str_replace("_", "", $removeS));
+
+            $tables[$tableName] = $modelName;
+        }
+
+        return $tables;
     }
 }

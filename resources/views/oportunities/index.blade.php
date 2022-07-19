@@ -84,7 +84,9 @@
                         <tr>
                             <th>{{ trans('oportunities.oportunity_label_id') }}</th>
                             <th>{{ trans('oportunities.descripcion') }}</th>
+                            <th>Cliente</th>
                             <th>{{ trans('oportunities.oportunity_st_id') }}</th>
+                            <th>Creado por</th>
                             <th>{{ trans('oportunities.created_at') }}</th>
                             <th></th>
                         </tr>
@@ -94,7 +96,13 @@
                         <tr>
                             <td>{{ optional($oportunity->oportunityLabel)->etiqueta }}</td>
                             <td>{{ $oportunity->descripcion }}</td>
+                            <td>
+                                @foreach($oportunity->customer as $customer)
+                                    {{ $customer->razon }}
+                                @endforeach
+                            </td>
                             <td><span class="label arrowed-in-right arrowed" style="background-color: {{ old('color', optional($oportunity->oportunitySt)->color) }};">{{ optional($oportunity->oportunitySt)->estatus }}</span></td>
+                            <td>{{$oportunity->usu_alta->name}}</td>
                             <td>{{ $oportunity->created_at }}</td>
                             <td>
 

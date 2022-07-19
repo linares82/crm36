@@ -53,8 +53,6 @@
 
     <div class="panel-body">
         <dl class="dl-horizontal">
-            <dt>{{ trans('customers.oportunity_id') }}</dt>
-            <dd>{{ optional($customer->oportunity)->descripcion }}</dd>
             <dt>{{ trans('customers.razon') }}</dt>
             <dd>{{ $customer->razon }}</dd>
             <dt>{{ trans('customers.nombre1') }}</dt>

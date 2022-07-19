@@ -52,7 +52,7 @@ trait CommonCommand
     ];
 
     /**
-     * Replaces a template variable in the giving subject.
+     * Replaces a template variable in the given subject.
      *
      * @return string
      */
@@ -64,7 +64,7 @@ trait CommonCommand
     }
 
     /**
-     * Replaces a template variable in the giving subject.
+     * Replaces a template variable in the given subject.
      *
      * @param string $search
      * @param string $replace
@@ -90,7 +90,7 @@ trait CommonCommand
     }
 
     /**
-     * Gets the relation accessor for the giving foreign renationship.
+     * Gets the relation accessor for the given foreign renationship.
      *
      * @param string $name
      *
@@ -98,21 +98,11 @@ trait CommonCommand
      */
     protected function getUseClassCommand($name)
     {
-        return sprintf('use %s;', $name);
-    }
-
-    /**
-     * Gets the correct routes fullname based on current framework version.
-     *
-     * @return string
-     */
-    protected function getRoutesFileName()
-    {
-        if (Helpers::isNewerThanOrEqualTo()) {
-            return base_path('routes/web.php');
+        if (empty($name)) {
+            return '';
         }
 
-        return app_path('Http/routes.php');
+        return sprintf('use %s;', $name);
     }
 
     /**
@@ -130,7 +120,7 @@ trait CommonCommand
     }
 
     /**
-     * Gets plural variable instance of a giving model.
+     * Gets plural variable instance of a given model.
      *
      * @param  string  $name
      *
@@ -138,9 +128,9 @@ trait CommonCommand
      */
     public function getPluralVariable($name)
     {
-        $snake = snake_case($name);
+        $snake = Str::snake($name);
 
-        $variableName = camel_case(Str::plural($snake));
+        $variableName = Str::camel(Str::plural($snake));
 
         if ($variableName == $this->getSingularVariable($name)) {
             $variableName .= 'Objects';
@@ -150,7 +140,7 @@ trait CommonCommand
     }
 
     /**
-     * Gets singular variable instance of a giving model.
+     * Gets singular variable instance of a given model.
      *
      * @param  string  $name
      *
@@ -158,9 +148,9 @@ trait CommonCommand
      */
     public function getSingularVariable($name)
     {
-        $snake = snake_case($name);
+        $snake = Str::snake($name);
 
-        return camel_case($snake);
+        return Str::camel($snake);
     }
 
     /**
@@ -235,7 +225,7 @@ trait CommonCommand
     }
 
     /**
-     * It Replaces the view names in a giving stub
+     * It Replaces the view names in a given stub
      *
      * @param string $stub
      * @param string $viewDirectory
@@ -272,6 +262,7 @@ trait CommonCommand
 
         if (!empty($routesPrefix)) {
             $routesPrefix = str_replace('.', '-', $routesPrefix);
+
             $name = Helpers::getWithDotPostFix(Helpers::convertToDotNotation($routesPrefix)) . $name;
         }
 
@@ -346,7 +337,7 @@ trait CommonCommand
      */
     protected function getStubContent($name, $template = null)
     {
-        return $this->getFileContent($this->getStubByName($name, $template));
+        return $this->getFileContent($this->getStubByName($name, $template ?: $this->getTemplateName()));
     }
 
     /**
@@ -400,7 +391,7 @@ trait CommonCommand
     }
 
     /**
-     * Adds content to a giving file.
+     * Adds content to a given file.
      *
      * @param  string  $file
      *
@@ -408,13 +399,19 @@ trait CommonCommand
      */
     protected function putContentInFile($file, $content)
     {
-        $bytesWritten = File::put($file, $content);
+		$path = dirname($file);
+				
+		if(!$this->isFileExists($path)) {
+			File::makeDirectory($path, 0755, true);
+		}
+		
+        File::put($file, $content);
 
         return $this;
     }
 
     /**
-     * Adds content to a giving file.
+     * Adds content to a given file.
      *
      * @param  string  $file
      *
@@ -422,13 +419,13 @@ trait CommonCommand
      */
     protected function appendContentToFile($file, $content)
     {
-        $bytesWritten = File::append($file, $content);
+        File::append($file, $content);
 
         return $this;
     }
 
     /**
-     * Determine the primary field in a giving array
+     * Determine the primary field in a given array
      *
      * @param array $fields
      *
@@ -508,25 +505,30 @@ trait CommonCommand
     /**
      * Gets the path to templates
      *
-     * @param string $template
+     * @param string $templateName
      *
      * @return string
      */
-    protected function getPathToTemplates($template = null)
+    protected function getPathToTemplates($templateName = null)
     {
-        $template = Helpers::getPathWithSlash($template ?: Config::getDefaultTemplateName());
-        $basePath = base_path(Config::getTemplatesPath() . $template);
-        $path = Helpers::getPathWithSlash($basePath);
+        $templateName = $templateName ?: Config::getDefaultTemplateName();
+        $path = base_path(Config::getTemplatesPath() . Helpers::getPathWithSlash($templateName));
 
-        if (!$this->isFileExists($path)) {
+        if (!File::isDirectory($path) && in_array($templateName, ['default', 'default-collective'])) {
+            // If the default templates are not published, utilize the default package path.
+
+            $path = __DIR__ . '/../../templates/' . $templateName;
+        }
+
+        if (!File::isDirectory($path)) {
             throw new Exception('Invalid template. Make sure the following path exists: "' . $path . '"');
         }
 
-        return $path;
+        return Helpers::getPathWithSlash($path);
     }
 
     /**
-     * Checks the giving template if it is a Laravel-Collective template or not.
+     * Checks the given template if it is a Laravel-Collective template or not.
      *
      * @param string $template
      *
@@ -538,7 +540,7 @@ trait CommonCommand
     }
 
     /**
-     * Checks if a giving fields array conatins at least one file field
+     * Checks if a given fields array conatins at least one file field
      *
      * @param array
      *
@@ -550,7 +552,7 @@ trait CommonCommand
             return $field->isFile();
         });
 
-        return (count($filtered) > 0);
+        return !empty($filtered);
     }
 
     /**
